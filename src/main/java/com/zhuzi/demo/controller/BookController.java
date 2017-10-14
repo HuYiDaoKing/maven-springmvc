@@ -33,7 +33,7 @@ public class BookController {
 
     private static final Log logger= LogFactory.getLog(BookController.class);
 
-    @RequestMapping(value = "/book_input", method = RequestMethod.GET)
+    @RequestMapping(value = "/book_input", method = { RequestMethod.GET,RequestMethod.PUT })
     public String inputBook(Model model)
     {
         List<Category> categories =bookService.getAllCategories();
