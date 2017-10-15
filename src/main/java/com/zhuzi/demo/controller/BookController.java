@@ -58,7 +58,7 @@ public class BookController {
         Category category=bookService.getCategory(book.getCategory().getId());
         book.setCategory(category);
         bookService.save(book);
-        return "redirect:/book_list";
+        return "redirect:/book/book_list";
     }
 
     @RequestMapping(value="/book_list",method = { RequestMethod.GET ,RequestMethod.PUT })
