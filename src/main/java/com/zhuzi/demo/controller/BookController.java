@@ -45,10 +45,19 @@ public class BookController {
     @RequestMapping(value="/book_edit/{id}")
     public String editBook(Model model, @PathVariable long id)
     {
-        List<Category> categories=bookService.getAllCategories();
-        model.addAttribute("categories",categories);
-        Book book =bookService.get(id);
-        model.addAttribute("book",book);
+        try
+        {
+            List<Category> categories=bookService.getAllCategories();
+            model.addAttribute("categories",categories);
+            Book book =bookService.get(id);
+            model.addAttribute("book",book);
+            int t = 3/0;
+        }catch (Exception ex)
+        {
+            System.err.println(ex.getMessage());
+            return ex.getMessage();
+        }
+
         return "/book/BookEditForm";
     }
 
