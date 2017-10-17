@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import service.BookService;
 import service.HelloService;
 import service.ProductService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/book/")
 public class BookController {
+
+    //private static  final Logger LOGGER = Logger.getLogger(BookController.class);
+    private static Logger logger_ = LogManager.getLogger(BookController.class);
 
     List<Category> categories=new ArrayList<Category>();
     List<Book> books = new ArrayList<Book>();
@@ -73,10 +78,16 @@ public class BookController {
     @RequestMapping(value="/book_list",method = { RequestMethod.GET ,RequestMethod.PUT })
     public String listBooks(Model model)
     {
-        logger.info("book_list");
-
-        List<Book> books= bookService.getAllBooks();
-        model.addAttribute("books",books);
+        try
+        {
+            logger_.info("book_list");
+            logger_.debug("book_list");
+            List<Book> books= bookService.getAllBooks();
+            model.addAttribute("books",books);
+        }catch (Exception ex)
+        {
+            logger_.error(ex.getMessage());
+        }
         return "/book/BookList";
     }
 
